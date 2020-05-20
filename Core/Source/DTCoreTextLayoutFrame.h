@@ -15,6 +15,8 @@
 
 #import "DTCoreTextConstants.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class DTCoreTextLayoutLine;
 @class DTTextAttachment;
 @class DTTextBlock;
@@ -163,7 +165,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 /**
  Set a custom handler to be executed before text belonging to a text block is drawn. Of type <DTCoreTextLayoutFrameTextBlockHandler>.
 */
-@property (nonatomic, copy) DTCoreTextLayoutFrameTextBlockHandler textBlockHandler;
+@property (nonatomic, copy, nullable) DTCoreTextLayoutFrameTextBlockHandler textBlockHandler;
 
 
 /**
@@ -197,7 +199,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 /**
  The text lines that belong to the receiver.
  */
-@property (nonatomic, strong, readonly) NSArray<DTCoreTextLayoutLine *> *lines;
+@property (nonatomic, strong, readonly, nullable) NSArray<DTCoreTextLayoutLine *> *lines;
 
 
 /**
@@ -224,7 +226,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param index The string index
  @returns The layout line that this index belongs to
  */
-- (DTCoreTextLayoutLine *)lineContainingIndex:(NSUInteger)index;
+- (nullable DTCoreTextLayoutLine *)lineContainingIndex:(NSUInteger)index;
 
 
 /**
@@ -327,7 +329,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param index The index of the paragraph
  @returns An array, sorted from top to bottom, of lines in this paragraph
  */
-- (NSArray<DTCoreTextLayoutLine *> *)linesInParagraphAtIndex:(NSUInteger)index;
+- (nullable NSArray<DTCoreTextLayoutLine *> *)linesInParagraphAtIndex:(NSUInteger)index;
 
 
 /**
@@ -374,7 +376,9 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 /**
  Optional attributed string to use as truncation indicator.  If nil, will use "…" w/ attributes taken from text being truncated
  */
-@property(nonatomic, strong)NSAttributedString *truncationString;
+@property(nonatomic, strong, nullable) NSAttributedString *truncationString;
 
 
 @end
+
+NS_ASSUME_NONNULL_END
