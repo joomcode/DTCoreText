@@ -16,6 +16,7 @@
 #import "DTCoreTextConstants.h"
 
 @class DTCoreTextLayoutLine;
+@class DTTextAttachment;
 @class DTTextBlock;
 
 /**
@@ -196,7 +197,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
 /**
  The text lines that belong to the receiver.
  */
-@property (nonatomic, strong, readonly) NSArray *lines;
+@property (nonatomic, strong, readonly) NSArray<DTCoreTextLayoutLine *> *lines;
 
 
 /**
@@ -205,7 +206,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param rect The rectangle
  @returns An array, sorted from top to bottom, of lines at least partially visible
  */
-- (NSArray *)linesVisibleInRect:(CGRect)rect; 
+- (NSArray<DTCoreTextLayoutLine *> *)linesVisibleInRect:(CGRect)rect;
 
 
 /**
@@ -214,7 +215,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param rect The rectangle
  @returns An array, sorted from top to bottom, of lines fully visible
  */
-- (NSArray *)linesContainedInRect:(CGRect)rect;
+- (NSArray<DTCoreTextLayoutLine *> *)linesContainedInRect:(CGRect)rect;
 
 
 /**
@@ -285,7 +286,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  The array of all <DTTextAttachment> instances that belong to the receiver.
  @returns All text attachments of the receiver.
  */
-- (NSArray *)textAttachments;
+- (NSArray<DTTextAttachment *> *)textAttachments;
 
 
 /**
@@ -294,7 +295,7 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param predicate A predicate that uses properties of <DTTextAttachment> to reduce the returned array
  @returns A filtered array of text attachments.
  */
-- (NSArray *)textAttachmentsWithPredicate:(NSPredicate *)predicate;
+- (NSArray<DTTextAttachment *> *)textAttachmentsWithPredicate:(NSPredicate *)predicate;
 
 
 /** 
@@ -326,13 +327,13 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  @param index The index of the paragraph
  @returns An array, sorted from top to bottom, of lines in this paragraph
  */
-- (NSArray *)linesInParagraphAtIndex:(NSUInteger)index;
+- (NSArray<DTCoreTextLayoutLine *> *)linesInParagraphAtIndex:(NSUInteger)index;
 
 
 /**
  An array of `NSRange` values encapsulated in `NSValue` instances. Each range is the string range contained in the corresponding paragraph.
 */
-@property (nonatomic, strong, readonly) NSArray *paragraphRanges;
+@property (nonatomic, strong, readonly) NSArray<NSValue *> *paragraphRanges;
 
 
 /**
