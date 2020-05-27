@@ -515,6 +515,8 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 		
 		CTLineRef line;
 		BOOL isHyphenatedString = NO;
+
+        CGFloat currentLineWidth;
 		
 		if (!shouldTruncateLine)
 		{
@@ -534,7 +536,10 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 				// create a line to fit
 				line = CTTypesetterCreateLine(typesetter, CFRangeMake(lineRange.location, lineRange.length));
 			}
-		}
+
+            // we need all metrics so get the at once
+            currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
+        }
 		else
 		{
 			// extend the line to the end of the current paragraph
@@ -569,7 +574,10 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 			
 			// create the truncated line
 			line = CTLineCreateTruncatedLine(baseLine, availableSpace, truncationType, elipsisLineRef);
-            
+
+            // we need all metrics so get the at once
+            currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
+
             // check if truncation occurred
             BOOL truncationOccured = !areLinesEqual(baseLine, line);
             // if yes check was it before the end of the current paragraph or after
@@ -580,6 +588,36 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
                 if (truncationOccured)
                 {
                     CFIndex truncationIndex = getTruncationIndex(line, elipsisLineRef);
+
+                    // It looks like a bug in `CTLineCreateTruncatedLine`. `CTLineCreateTruncatedLine` can return a line which is wider
+                    // than `availableSpace`.
+                    // As a workaround, we trim non-whitespace characters at the end of the string proposed by `CTLineCreateTruncatedLine`.
+                    if (currentLineWidth > availableSpace)
+                    {
+                        NSRange searchRange = NSMakeRange(lineRange.location, truncationIndex);
+
+                        NSRange whitespaceCharacterRange = [self.attributedStringFragment.string rangeOfCharacterFromSet:NSCharacterSet.whitespaceCharacterSet options:NSBackwardsSearch range:searchRange];
+                        if (whitespaceCharacterRange.location != NSNotFound)
+                        {
+                            searchRange.length = whitespaceCharacterRange.location - searchRange.location;
+
+                            NSRange nonWhitespaceCharacterRange = [self.attributedStringFragment.string rangeOfCharacterFromSet:NSCharacterSet.whitespaceCharacterSet.invertedSet options:NSBackwardsSearch range:searchRange];
+                            if (nonWhitespaceCharacterRange.location != NSNotFound)
+                            {
+                                // recalculated the truncated line
+                                NSRange truncatedRange = NSMakeRange(lineRange.location, NSMaxRange(nonWhitespaceCharacterRange) - lineRange.location);
+                                NSMutableAttributedString *attributedString = [[self.attributedStringFragment attributedSubstringFromRange:truncatedRange] mutableCopy];
+                                [attributedString appendAttributedString:attribStr];
+
+                                line = CTLineCreateWithAttributedString((__bridge  CFAttributedStringRef)(attributedString));
+                                truncationIndex = getTruncationIndex(line, elipsisLineRef);
+
+                                // recalculate line width
+                                currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
+                            }
+                        }
+                    }
+
                     // if truncation occurred after the end of the paragraph
                     // move truncation token to the end of the paragraph
                     if (truncationIndex > endOfParagraphIndex)
@@ -589,6 +627,9 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
                         [attrMutStr appendAttributedString:attribStr];
                         CFRelease(line);
                         line = CTLineCreateWithAttributedString((__bridge  CFAttributedStringRef)(attrMutStr));
+
+                        // recalculate line width
+                        currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
                     }
                     // otherwise, everything is OK
                 }
@@ -603,6 +644,9 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
                         [attrMutStr appendAttributedString:attribStr];
                         CFRelease(line);
                         line = CTLineCreateWithAttributedString((__bridge  CFAttributedStringRef)(attrMutStr));
+
+                        // recalculate line width
+                        currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
                     }
                 }
             }
@@ -611,10 +655,7 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 			CFRelease(baseLine);
 			CFRelease(elipsisLineRef);
 		}
-		
-		// we need all metrics so get the at once
-		CGFloat currentLineWidth = (CGFloat)CTLineGetTypographicBounds(line, NULL, NULL, NULL);
-		
+
 		// adjust lineOrigin based on paragraph text alignment
 		CTTextAlignment textAlignment;
 		
