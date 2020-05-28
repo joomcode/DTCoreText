@@ -8,6 +8,8 @@
 
 #import "DTAttributedTextContentView.h"
 
+NS_ASSUME_NONNULL_BEGIN
+
 /**
  A Rich Text replacement for `UILabel`. It inherits from <DTAttributedTextContentView> and as such you can also set the delegate to provide custom subviews i.e. for images or hyperlinks.
  
@@ -33,6 +35,8 @@
 /**
  The string to append to the visible string in case a truncation occurs
  */
-@property(nonatomic, strong) NSAttributedString *truncationString;
+@property(nonatomic, strong, nullable) NSAttributedString *truncationString;
 
 @end
+
+NS_ASSUME_NONNULL_END

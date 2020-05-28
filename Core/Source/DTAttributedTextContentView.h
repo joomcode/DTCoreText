@@ -9,6 +9,8 @@
 #import "DTCoreTextLayoutFrame.h"
 #import <DTFoundation/DTWeakSupport.h>
 
+NS_ASSUME_NONNULL_BEGIN
+
 @class DTAttributedTextContentView;
 @class DTCoreTextLayoutFrame;
 @class DTTextBlock;
@@ -78,7 +80,7 @@ extern NSString * const DTAttributedTextContentViewDidFinishLayoutNotification;
  @param frame The frame that the view should use to fit on top of the space reserved for the attachment
  @returns The view that should represent the given attachment
  */
-- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame;
+- (nullable UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttachment:(DTTextAttachment *)attachment frame:(CGRect)frame;
 
 
 /**
@@ -90,7 +92,7 @@ extern NSString * const DTAttributedTextContentViewDidFinishLayoutNotification;
  @param frame The frame that the view should use to fit on top of the space reserved for the attachment
  @returns The view that should represent the given hyperlink
  */
-- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame;
+- (nullable UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForLink:(NSURL *)url identifier:(NSString *)identifier frame:(CGRect)frame;
 
 
 /**
@@ -104,7 +106,7 @@ extern NSString * const DTAttributedTextContentViewDidFinishLayoutNotification;
  @returns The view that should represent the given hyperlink or text attachment
  @see attributedTextContentView:viewForAttachment:frame: and attributedTextContentView:viewForAttachment:frame:
  */
-- (UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttributedString:(NSAttributedString *)string frame:(CGRect)frame;
+- (nullable UIView *)attributedTextContentView:(DTAttributedTextContentView *)attributedTextContentView viewForAttributedString:(NSAttributedString *)string frame:(CGRect)frame;
 
 @end
 
@@ -194,7 +196,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
  
  By default this is generated automatically for the current <attributedString>. You can also supply your own if you require special layouting behavior.
  */
-@property (atomic, strong) DTCoreTextLayouter *layouter;
+@property (atomic, strong, nullable) DTCoreTextLayouter *layouter;
 
 
 /**
@@ -202,7 +204,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
  
  A layout frame is basically one rectangle, inset by the <edgeInsets>. By default this is automatically generated for the current <attributedString>. You can also create a <DTCoreTextLayoutFrame> seperately and set this property to display the layout frame. This is usedful for example if you layout entire e-book and then set the <layoutFrame> for displaying individual pages.
  */
-@property (atomic, strong) DTCoreTextLayoutFrame *layoutFrame;
+@property (atomic, strong, nullable) DTCoreTextLayoutFrame *layoutFrame;
 
 
 /**
@@ -242,7 +244,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
  The delegate that is in charge of supplying custom behavior for the receiver. It must conform to <DTAttributedTextContentViewDelegate> and provide custom subviews, link buttons, etc.
  */
 
-@property (nonatomic, DT_WEAK_PROPERTY) IBOutlet id <DTAttributedTextContentViewDelegate> delegate;
+@property (nonatomic, DT_WEAK_PROPERTY, nullable) IBOutlet id <DTAttributedTextContentViewDelegate> delegate;
 
 /**
  @name Customizing Content Display
@@ -335,7 +337,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
  @see [DTCoreTextLayoutFrame drawInContext:options:] for a list of available drawing options
  @returns A `UIImage` with the specified content
  */
-- (UIImage *)contentImageWithBounds:(CGRect)bounds options:(DTCoreTextLayoutFrameDrawingOptions)options;
+- (nullable UIImage *)contentImageWithBounds:(CGRect)bounds options:(DTCoreTextLayoutFrameDrawingOptions)options;
 
 @end
 
@@ -362,3 +364,5 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
 - (CGRect)cursorRectAtIndex:(NSInteger)index;
 
 @end
+
+NS_ASSUME_NONNULL_END
