@@ -134,8 +134,8 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
 
 @interface DTAttributedTextContentView : UIView
 {
-	NSAttributedString *_attributedString;
-	DTCoreTextLayoutFrame *_layoutFrame;
+	NSAttributedString * _Nullable _attributedString;
+	DTCoreTextLayoutFrame * _Nullable _layoutFrame;
 	
 	UIEdgeInsets _edgeInsets;
 	
@@ -146,7 +146,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
 	// for layoutFrame
 	NSInteger _numberOfLines;
 	NSLineBreakMode _lineBreakMode;
-	NSAttributedString *_truncationString;
+	NSAttributedString * _Nullable _truncationString;
 }
 
 
@@ -237,7 +237,7 @@ typedef NSUInteger DTAttributedTextContentViewRelayoutMask;
 /**
  The attributed string to display in the receiver
  */
-@property (nonatomic, copy) NSAttributedString *attributedString;
+@property (nonatomic, copy, nullable) NSAttributedString *attributedString;
 
 
 /**
