@@ -571,8 +571,8 @@ static BOOL _needsChineseFontCascadeFix = NO;
         UIFont *systemFont = [UIFont systemFontOfSize:_pointSize];
 		
 		matchingFont = [systemFont.familyName isEqual:_fontFamily] && [systemFont.fontName isEqual:usedName]
-            ? (__bridge CTFontRef)systemFont
-            : (__bridge CTFontRef)[UIFont fontWithName:usedName size:_pointSize];
+            ? (__bridge_retained CTFontRef)systemFont
+            : (__bridge_retained CTFontRef)[UIFont fontWithName:usedName size:_pointSize];
 	}
 	else
 	{
