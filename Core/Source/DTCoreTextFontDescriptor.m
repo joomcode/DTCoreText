@@ -10,6 +10,7 @@
 #import "DTCoreTextFontDescriptor.h"
 #import "DTCoreTextFontCollection.h"
 #import "DTCoreTextConstants.h"
+#import <os/lock.h>
 
 static NSCache *_fontCache = nil;
 static NSMutableDictionary *_fontOverrides = nil;
@@ -568,9 +569,38 @@ static BOOL _needsChineseFontCascadeFix = NO;
 	{
 		// we can create a font directly from the name
 		NSString *usedName = overrideName?overrideName:_fontName;
-        UIFont *systemFont = [UIFont systemFontOfSize:_pointSize];
-		
-		matchingFont = [systemFont.familyName isEqual:_fontFamily] && [systemFont.fontName isEqual:usedName]
+
+        static NSDictionary<NSString *, UIFont *> *systemFontByName;
+        static os_unfair_lock lock = OS_UNFAIR_LOCK_INIT;
+
+        os_unfair_lock_lock(&lock);
+        if (!systemFontByName) {
+            NSMutableDictionary<NSString *, UIFont *> *dictionary = [NSMutableDictionary dictionary];
+
+            NSArray<NSNumber *> *weights = @[
+                @(UIFontWeightUltraLight),
+                @(UIFontWeightThin),
+                @(UIFontWeightLight),
+                @(UIFontWeightRegular),
+                @(UIFontWeightMedium),
+                @(UIFontWeightSemibold),
+                @(UIFontWeightBold),
+                @(UIFontWeightHeavy),
+                @(UIFontWeightBlack)
+            ];
+
+            for (NSNumber *weight in weights) {
+                UIFont *font = [UIFont systemFontOfSize:UIFont.systemFontSize weight:weight.doubleValue];
+                dictionary[font.fontName] = font;
+            }
+
+            systemFontByName = dictionary;
+        }
+        os_unfair_lock_unlock(&lock);
+
+        UIFont *systemFont = [systemFontByName[usedName] fontWithSize:(CGFloat)_pointSize];
+
+		matchingFont = systemFont && [systemFont.familyName isEqual:_fontFamily]
             ? (__bridge_retained CTFontRef)systemFont
             : (__bridge_retained CTFontRef)[UIFont fontWithName:usedName size:_pointSize];
 	}
