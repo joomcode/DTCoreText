@@ -270,7 +270,7 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 // determines the "half leading"
 - (CGFloat)_algorithmWebKit_halfLeadingOfLine:(DTCoreTextLayoutLine *)line
 {
-	CGFloat maxFontSize = [line lineHeight];
+    CGFloat maxFontSize = line.leading + line.descent + line.ascent;
 	
 	DTCoreTextParagraphStyle *paragraphStyle = [line paragraphStyle];
 	
