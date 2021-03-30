@@ -40,6 +40,7 @@
 		426693AE1B56F98500F9DBFC /* CTLineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4266937D1B56F60D00F9DBFC /* CTLineUtils.m */; };
 		5AF0E509CE9C6EC97E3007F5 /* AutoLayoutDemoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AF0E4DB1FBCBA1C165C0959 /* AutoLayoutDemoViewController.m */; };
 		5AF0ECFF9BD94137DE0992BA /* AutoLayoutDemoViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 5AF0E4D86A6BE8FC798F9702 /* AutoLayoutDemoViewController.xib */; };
+		7435FFC72613153A00F38CE2 /* DTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7435FFC62613153A00F38CE2 /* DTFoundation.framework */; };
 		944A9E6418B5A7F000E41481 /* DTCSSListStyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 944A9E6318B5A7F000E41481 /* DTCSSListStyleTest.m */; };
 		94D24B0D1D4AFE7800C7F33C /* CTLineUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 4266937D1B56F60D00F9DBFC /* CTLineUtils.m */; };
 		94D24B0E1D4AFE7800C7F33C /* NSAttributedStringRunDelegates.m in Sources */ = {isa = PBXBuildFile; fileRef = A788C93F14863E8700E1AFD9 /* NSAttributedStringRunDelegates.m */; };
@@ -204,7 +205,6 @@
 		A74F6FD616DBA48E00C12307 /* DTCoreTextParagraphStyleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A74F6FD516DBA48E00C12307 /* DTCoreTextParagraphStyleTest.m */; };
 		A75C6C72141798CE00AEE350 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A75C6C71141798CE00AEE350 /* MobileCoreServices.framework */; };
 		A762704017155420005F0CEC /* DTCoreTextFontCollection.m in Sources */ = {isa = PBXBuildFile; fileRef = A788C91914863E8700E1AFD9 /* DTCoreTextFontCollection.m */; };
-		A766D65A1B610E4B00394D48 /* DTFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A79BA6551B46A1FB0086C2F6 /* DTFoundation.framework */; };
 		A7675E7A172EA24700C548CB /* NSAttributedString+DTDebug.h in Headers */ = {isa = PBXBuildFile; fileRef = A7675E75172EA24700C548CB /* NSAttributedString+DTDebug.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A7675E7E172EA24700C548CB /* NSAttributedString+DTDebug.m in Sources */ = {isa = PBXBuildFile; fileRef = A7675E76172EA24700C548CB /* NSAttributedString+DTDebug.m */; };
 		A768BE4717FC547E008834C6 /* NSDictionaryDTCoreText.m in Sources */ = {isa = PBXBuildFile; fileRef = A768BE4617FC547E008834C6 /* NSDictionaryDTCoreText.m */; };
@@ -718,13 +718,6 @@
 			remoteGlobalIDString = A7EA07381A2B215200B61CCE;
 			remoteInfo = "DTFoundation (OSX)";
 		};
-		A79C304E1B60F27C00E5491A /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = A785701C17FAA69D0080AB0A /* DTFoundation.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = A7EA07B71A2B2F6A00B61CCE;
-			remoteInfo = "DTFoundation (iOS)";
-		};
 		A7D29D631CB68D2A0068F043 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = A785701C17FAA69D0080AB0A /* DTFoundation.xcodeproj */;
@@ -797,6 +790,7 @@
 		5AF0E4D86A6BE8FC798F9702 /* AutoLayoutDemoViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = AutoLayoutDemoViewController.xib; sourceTree = "<group>"; };
 		5AF0E4DB1FBCBA1C165C0959 /* AutoLayoutDemoViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AutoLayoutDemoViewController.m; sourceTree = "<group>"; };
 		5AF0E909A170F1B0FF3CCC47 /* AutoLayoutDemoViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AutoLayoutDemoViewController.h; sourceTree = "<group>"; };
+		7435FFC62613153A00F38CE2 /* DTFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTFoundation.framework; path = Carthage/Build/iOS/DTFoundation.framework; sourceTree = "<group>"; };
 		944A9E6318B5A7F000E41481 /* DTCSSListStyleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DTCSSListStyleTest.m; sourceTree = "<group>"; };
 		948723B11D4B130000274167 /* DemoWebVideoView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DemoWebVideoView.h; sourceTree = "<group>"; };
 		948723B21D4B130000274167 /* DemoWebVideoView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DemoWebVideoView.m; sourceTree = "<group>"; };
@@ -1143,8 +1137,8 @@
 				A74A7AAB1B617227004163BE /* CoreGraphics.framework in Frameworks */,
 				A74A7AA91B617222004163BE /* UIKit.framework in Frameworks */,
 				A74A7AA71B6171FC004163BE /* ImageIO.framework in Frameworks */,
+				7435FFC72613153A00F38CE2 /* DTFoundation.framework in Frameworks */,
 				A74A7AA51B6171F7004163BE /* CoreText.framework in Frameworks */,
-				A766D65A1B610E4B00394D48 /* DTFoundation.framework in Frameworks */,
 				A79BA6C51B46A3AA0086C2F6 /* libxml2.dylib in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1194,6 +1188,7 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				7435FFC62613153A00F38CE2 /* DTFoundation.framework */,
 				A74A7AAC1B617250004163BE /* QuartzCore.framework */,
 				A74A7AAA1B617227004163BE /* CoreGraphics.framework */,
 				A74A7AA81B617222004163BE /* UIKit.framework */,
@@ -1996,7 +1991,6 @@
 			buildRules = (
 			);
 			dependencies = (
-				A79C304F1B60F27C00E5491A /* PBXTargetDependency */,
 			);
 			name = "DTCoreText (iOS)";
 			productName = DTCoreText;
@@ -2678,11 +2672,6 @@
 			name = "DTFoundation (OSX)";
 			targetProxy = A79BA8461B46E5710086C2F6 /* PBXContainerItemProxy */;
 		};
-		A79C304F1B60F27C00E5491A /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = "DTFoundation (iOS)";
-			targetProxy = A79C304E1B60F27C00E5491A /* PBXContainerItemProxy */;
-		};
 		A7D29D641CB68D2A0068F043 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			name = "DTFoundation (iOS)";
@@ -2777,7 +2766,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.drobnik.DTCoreText;
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = appletvos;
@@ -2823,7 +2811,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.drobnik.DTCoreText;
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = appletvos;
@@ -2870,7 +2857,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.drobnik.DTCoreText;
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = appletvos;
@@ -3107,6 +3093,10 @@
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_NO_COMMON_BLOCKS = YES;
@@ -3127,7 +3117,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.drobnik.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = iphoneos;
@@ -3161,6 +3150,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Core/DTCoreText-Prefix.pch";
@@ -3174,7 +3167,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.drobnik.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = iphoneos;
@@ -3209,6 +3201,10 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				GCC_C_LANGUAGE_STANDARD = gnu99;
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_PREFIX_HEADER = "Core/DTCoreText-Prefix.pch";
@@ -3222,7 +3218,6 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
-				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = "com.drobnik.${PRODUCT_NAME:rfc1034identifier}";
 				PRODUCT_NAME = DTCoreText;
 				SDKROOT = iphoneos;
