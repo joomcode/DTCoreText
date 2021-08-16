@@ -120,6 +120,11 @@ typedef NS_ENUM(NSUInteger, DTCoreTextLayoutFrameDrawingOptions)
  */
 - (NSArray *)stringIndices;
 
+/**
+ Indicates whether the text was truncated to fit `frame` and `numberOfLines` constraints.
+ */
+@property (nonatomic, assign, readonly, getter=isTruncated) BOOL truncated;
+
 
 /**
  The frame rectangle for the layout frame.
