@@ -37,6 +37,8 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 	DTCoreTextLayoutFrameTextBlockHandler _textBlockHandler;
 	
 	CGFloat _longestLayoutLineWidth;
+
+	BOOL _truncated;
 }
 
 // makes a frame for a specific part of the attributed string of the layouter
@@ -437,7 +439,10 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 	NSUInteger maxIndex = NSMaxRange(_requestedStringRange);
 	NSUInteger fittingLength = 0;
 	BOOL shouldTruncateLine = NO;
-	
+
+	// reset `_truncated` flag
+	_truncated = NO;
+
 	do  // for each line
 	{
 		while (lineRange.location >= (currentParagraphRange.location+currentParagraphRange.length))
@@ -542,6 +547,9 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
         }
 		else
 		{
+			// memorize that there is a truncated line
+			_truncated = YES;
+
 			// extend the line to the end of the current paragraph
 			// if we extend to the entire to the entire text range
 			// it is possible to pull lines up from paragraphs below us
@@ -1666,6 +1674,15 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 	}
 	
 	return array;
+}
+
+- (BOOL)isTruncated {
+	if (!_lines)
+	{
+		[self _buildLines];
+	}
+
+	return _truncated;
 }
 
 - (NSInteger)lineIndexForGlyphIndex:(NSInteger)index
