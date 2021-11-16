@@ -37,7 +37,8 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 		self.userInteractionEnabled = YES;
 		self.enabled = YES;
 		self.opaque = NO;
-		
+		self.layer.needsDisplayOnBoundsChange = YES;
+
 		_showsTouchWhenHighlighted = YES;
 		
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(highlightNotification:) name:DTLinkButtonDidHighlightNotification object:nil];
