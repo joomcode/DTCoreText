@@ -109,7 +109,7 @@ static Class _layerClassToUseForDTAttributedTextContentView = nil;
 
 - (void)setup
 {
-	self.contentMode = UIViewContentModeTopLeft; // to avoid bitmap scaling effect on resize
+	self.contentMode = UIViewContentModeRedraw; // to avoid bitmap scaling effect on resize
 	_shouldLayoutCustomSubviews = YES;
 	
 	// no extra leading is added by default

@@ -37,6 +37,7 @@ NSString *DTLinkButtonDidHighlightNotification = @"DTLinkButtonDidHighlightNotif
 		self.userInteractionEnabled = YES;
 		self.enabled = YES;
 		self.opaque = NO;
+		self.contentMode = UIViewContentModeRedraw;
 		
 		_showsTouchWhenHighlighted = YES;
 		
