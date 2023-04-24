@@ -52,7 +52,7 @@
 
 
 	// runtime-check if NS-style attributes are allowed
-	static inline BOOL DTCoreTextModernAttributesPossible()
+	static inline BOOL DTCoreTextModernAttributesPossible(void)
 	{
 #if DTCORETEXT_SUPPORT_NS_ATTRIBUTES
 		if (floor(NSFoundationVersionNumber) >= DTNSFoundationVersionNumber_iOS_6_0)
@@ -64,7 +64,7 @@
 	}
 
 	// runtime-check if CoreText draws underlines
-	static inline BOOL DTCoreTextDrawsUnderlinesWithGlyphs()
+	static inline BOOL DTCoreTextDrawsUnderlinesWithGlyphs(void)
 	{
 		if (floor(NSFoundationVersionNumber) >= DTNSFoundationVersionNumber_iOS_7_0)
 		{
