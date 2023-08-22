@@ -1747,15 +1747,16 @@ static BOOL _DTCoreTextLayoutFramesShouldDrawDebugFrames = NO;
 	if (_frame.size.width == CGFLOAT_WIDTH_UNKNOWN)
 	{
 		// actual frame width is maximum value of lines
-		CGFloat maxWidth = 0;
-		
+		CGFloat minX = 0;
+		CGFloat maxX = 0;
+
 		for (DTCoreTextLayoutLine *oneLine in _lines)
 		{
-			CGFloat lineWidthFromFrameOrigin = CGRectGetMaxX(oneLine.frame) - _frame.origin.x;
-			maxWidth = MAX(maxWidth, lineWidthFromFrameOrigin);
+			minX = MIN(minX, CGRectGetMinX(oneLine.frame));
+			maxX = MAX(maxX, CGRectGetMaxX(oneLine.frame));
 		}
 		
-		_frame.size.width = ceil(maxWidth);
+		_frame.size.width = ceil(maxX - minX);
 	}
 	
 	return _frame;
