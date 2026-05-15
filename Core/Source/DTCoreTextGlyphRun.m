@@ -223,8 +223,7 @@
 				didDrawSomething = YES;
 			}
 			
-			// only draw underlines if Core Text didn't draw them yet
-			if (drawUnderline && !DTCoreTextDrawsUnderlinesWithGlyphs())
+			if (drawUnderline)
 			{
 				CGFloat y;
 				
