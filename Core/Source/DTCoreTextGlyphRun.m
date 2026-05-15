@@ -222,10 +222,14 @@
 
 			if (drawUnderline)
 			{
-				// kCTUnderlineStyleThick draws at 2x the font's underline thickness
-				CGFloat drawThickness = ([underlineStyleValue integerValue] == kCTUnderlineStyleThick)
-					? DTCeilWithContentScale(fontUnderlineThickness * 2.0f, contentScale)
-					: usedUnderlineThickness;
+				// DTUnderlineWidthAttribute overrides the width explicitly; kCTUnderlineStyleThick
+				// is ignored in that case since the caller already expressed the desired thickness.
+				NSNumber *explicitWidth = [_attributes objectForKey:DTUnderlineWidthAttribute];
+				CGFloat drawThickness = explicitWidth
+					? DTCeilWithContentScale([explicitWidth floatValue], contentScale)
+					: (([underlineStyleValue integerValue] == kCTUnderlineStyleThick)
+						? DTCeilWithContentScale(fontUnderlineThickness * 2.0f, contentScale)
+						: usedUnderlineThickness);
 
 				// use lowest underline position of all glyph runs in same line
 				CGFloat underlinePosition = [_line underlineOffset];
