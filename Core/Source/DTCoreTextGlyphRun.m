@@ -132,7 +132,8 @@
 	
 	// -------------- Line-Out, Underline, Background-Color
 	BOOL drawStrikeOut = [[_attributes objectForKey:DTStrikeOutAttribute] boolValue];
-	BOOL drawUnderline = [[_attributes objectForKey:(id)kCTUnderlineStyleAttributeName] boolValue];
+	NSNumber *underlineStyleValue = [_attributes objectForKey:(id)kCTUnderlineStyleAttributeName];
+	BOOL drawUnderline = [underlineStyleValue boolValue];
 	
 	if (drawStrikeOut||drawUnderline||backgroundColor)
 	{
@@ -177,14 +178,12 @@
 		
 		if (drawStrikeOut || drawUnderline)
 		{
-			BOOL didDrawSomething = NO;
-			
 			CGContextSaveGState(context);
-			
+
 			CTFontRef usedFont = (__bridge CTFontRef)([_attributes objectForKey:(id)kCTFontAttributeName]);
-			
+
 			CGFloat fontUnderlineThickness;
-			
+
 			if (usedFont)
 			{
 				fontUnderlineThickness = CTFontGetUnderlineThickness(usedFont) * smallestPixelWidth;
@@ -193,15 +192,13 @@
 			{
 				fontUnderlineThickness = smallestPixelWidth;
 			}
-			
+
 			CGFloat usedUnderlineThickness = DTCeilWithContentScale(fontUnderlineThickness, contentScale);
-			
-			CGContextSetLineWidth(context, usedUnderlineThickness);
-			
+
 			if (drawStrikeOut)
 			{
 				CGFloat y;
-				
+
 				if (usedFont)
 				{
 					CGFloat strokePosition = CTFontGetXHeight(usedFont)/(CGFloat)2.0;
@@ -211,43 +208,41 @@
 				{
 					y = DTRoundWithContentScale((runStrokeBounds.origin.y + self.frame.size.height/2.0f + 1), contentScale);
 				}
-				
+
 				if ((int)(usedUnderlineThickness/smallestPixelWidth)%2) // odd line width
 				{
 					y += smallestPixelWidth/2.0f; // shift down half a pixel to avoid aliasing
 				}
-				
+
+				CGContextSetLineWidth(context, usedUnderlineThickness);
 				CGContextMoveToPoint(context, runStrokeBounds.origin.x, y);
 				CGContextAddLineToPoint(context, runStrokeBounds.origin.x + runStrokeBounds.size.width, y);
-				
-				didDrawSomething = YES;
-			}
-			
-			if (drawUnderline)
-			{
-				CGFloat y;
-				
-				// use lowest underline position of all glyph runs in same line
-				CGFloat underlinePosition = [_line underlineOffset];
-				
-				y = DTRoundWithContentScale(_line.baselineOrigin.y + underlinePosition - fontUnderlineThickness/2.0f, contentScale);
-				
-				if ((int)(usedUnderlineThickness/smallestPixelWidth)%2) // odd line width
-				{
-					y += smallestPixelWidth/2.0f; // shift down half a pixel to avoid aliasing
-				}
-				
-				CGContextMoveToPoint(context, runStrokeBounds.origin.x, y);
-				CGContextAddLineToPoint(context, runStrokeBounds.origin.x + runStrokeBounds.size.width, y);
-				
-				didDrawSomething = YES;
-			}
-			
-			if (didDrawSomething)
-			{
 				CGContextStrokePath(context);
 			}
-			
+
+			if (drawUnderline)
+			{
+				// kCTUnderlineStyleThick draws at 2x the font's underline thickness
+				CGFloat drawThickness = ([underlineStyleValue integerValue] == kCTUnderlineStyleThick)
+					? DTCeilWithContentScale(fontUnderlineThickness * 2.0f, contentScale)
+					: usedUnderlineThickness;
+
+				// use lowest underline position of all glyph runs in same line
+				CGFloat underlinePosition = [_line underlineOffset];
+
+				CGFloat y = DTRoundWithContentScale(_line.baselineOrigin.y + underlinePosition - fontUnderlineThickness/2.0f, contentScale);
+
+				if ((int)(drawThickness/smallestPixelWidth)%2) // odd line width
+				{
+					y += smallestPixelWidth/2.0f; // shift down half a pixel to avoid aliasing
+				}
+
+				CGContextSetLineWidth(context, drawThickness);
+				CGContextMoveToPoint(context, runStrokeBounds.origin.x, y);
+				CGContextAddLineToPoint(context, runStrokeBounds.origin.x + runStrokeBounds.size.width, y);
+				CGContextStrokePath(context);
+			}
+
 			CGContextRestoreGState(context); // restore antialiasing
 		}
 	}
