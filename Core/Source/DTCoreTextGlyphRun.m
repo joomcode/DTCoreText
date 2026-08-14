@@ -231,8 +231,10 @@
 						? DTCeilWithContentScale(fontUnderlineThickness * 2.0f, contentScale)
 						: usedUnderlineThickness);
 
-				// use lowest underline position of all glyph runs in same line
-				CGFloat underlinePosition = [_line underlineOffset];
+				// DTUnderlinePositionAttribute overrides the font's underline position explicitly;
+				// otherwise use the lowest underline position of all glyph runs in same line.
+				NSNumber *explicitPosition = [_attributes objectForKey:DTUnderlinePositionAttribute];
+				CGFloat underlinePosition = explicitPosition ? fabs([explicitPosition floatValue]) : [_line underlineOffset];
 
 				CGFloat y = DTRoundWithContentScale(_line.baselineOrigin.y + underlinePosition - fontUnderlineThickness/2.0f, contentScale);
 

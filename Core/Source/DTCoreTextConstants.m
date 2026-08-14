@@ -45,6 +45,7 @@ NSString * const DTGUIDAttribute = @"DTGUID";
 NSString * const DTHeaderLevelAttribute = @"DTHeaderLevel";
 NSString * const DTStrikeOutAttribute = @"DTStrikethrough";
 NSString * const DTUnderlineWidthAttribute = @"DTUnderlineWidth";
+NSString * const DTUnderlinePositionAttribute = @"DTUnderlinePosition";
 NSString * const DTBackgroundColorAttribute = @"DTBackgroundColor";
 NSString * const DTShadowsAttribute = @"DTShadows";
 NSString * const DTHorizontalRuleStyleAttribute = @"DTHorizontalRuleStyle";

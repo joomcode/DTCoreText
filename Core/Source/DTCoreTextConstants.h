@@ -73,6 +73,7 @@ extern NSString * const DTGUIDAttribute;
 extern NSString * const DTHeaderLevelAttribute;
 extern NSString * const DTStrikeOutAttribute;
 extern NSString * const DTUnderlineWidthAttribute;
+extern NSString * const DTUnderlinePositionAttribute;
 extern NSString * const DTBackgroundColorAttribute;
 extern NSString * const DTShadowsAttribute;
 extern NSString * const DTHorizontalRuleStyleAttribute;
